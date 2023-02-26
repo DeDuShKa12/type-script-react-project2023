@@ -5,7 +5,6 @@ import css from './Genre.module.css'
 import {IDetGenres} from "../../interfaces";
 
 interface IProps {
-    key: number;
     genre: IDetGenres
 }
 

@@ -2,7 +2,6 @@ import React, {FC} from 'react';
 import {ICountrie} from "../../interfaces";
 
 interface IProps {
-    key:number;
     countrie: ICountrie
 }
 

@@ -2,7 +2,6 @@ import React, {FC} from 'react';
 import {IProdComp} from "../../interfaces";
 
 interface IProps {
-    key:number;
     prodc: IProdComp;
 }
 

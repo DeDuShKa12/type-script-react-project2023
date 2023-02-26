@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import css from './GenreInDetails.module.css'
 
 interface IProps {
-    key: number;
     genre: {id:number,name:string}
 }
 
