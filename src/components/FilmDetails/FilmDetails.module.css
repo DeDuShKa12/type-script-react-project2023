@@ -1,25 +1,12 @@
-.detailsMainBox {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    padding-top: 50px;
-    padding-bottom: 100px;
-    background-image: var(--background-image);
-    color: var(--text-third);
-}
-
 .mainBox {
     display: flex;
     justify-content: space-between;
-    margin-top: 100px;
-    width: 60%;
-    height: 80vh;
+    width: 100%;
+    height: 100%;
     background-color: var(--background-fourth);
     box-sizing: border-box;
     padding: 20px;
+    color: var(--text-third);
 }
 .imgBox {
     width: 40%;

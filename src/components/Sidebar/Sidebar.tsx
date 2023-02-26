@@ -1,78 +1,38 @@
-import React, { useState } from 'react';
-import './Sidebar.css';
+import React, {FC, useMemo, useState} from 'react';
 import { Genres } from '../Genres/Genres';
 
-export type SidebarProps = {
-    children: React.ReactNode;
-};
+import './Sidebar.css';
 
-const Sidebar = ({ children }: SidebarProps) => {
+
+const Sidebar:FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const sidebarClasses = useMemo(() => isOpen ? 'sidebar-content open' : 'sidebar-content', [isOpen]);
+    const triggerClasses = useMemo(() => isOpen ? 'sidebar-trigger open' : 'sidebar-trigger', [isOpen]);
 
-    const toggleSidebar = ():void => {
+    const toggleSidebar = (): void => {
         setIsOpen(!isOpen);
     };
 
-    const closeSidebar = ():void => {
+    const closeSidebar = (): void => {
         setIsOpen(false);
     };
 
     return (
         <>
-            <SidebarTrigger isOpen={isOpen} onClick={toggleSidebar} />
-            <SidebarContent isOpen={isOpen}>
-                {children}
-                <CloseButton onClick={closeSidebar} />
-            </SidebarContent>
-        </>
-    );
-};
-
-type SidebarContentProps = {
-    isOpen: boolean;
-    children: React.ReactNode;
-};
-
-const SidebarContent = ({ isOpen, children }: SidebarContentProps) => {
-    const sidebarClasses = isOpen ? 'sidebar-content open' : 'sidebar-content';
-
-    return <div className={sidebarClasses}>{children}</div>;
-};
-
-type SidebarTriggerProps = {
-    isOpen: boolean;
-    onClick: () => void;
-};
-
-const SidebarTrigger = ({ isOpen, onClick }: SidebarTriggerProps) => {
-    const triggerClasses = isOpen ? 'sidebar-trigger open' : 'sidebar-trigger';
-
-    const buttonClose = 'buttonClose';
-
-    return (
-        <div className={triggerClasses} onClick={onClick}>
-            <button className={buttonClose}>Жанри</button>
-        </div>
-    );
-};
-
-type CloseButtonProps = {
-    onClick: () => void;
-};
-
-const CloseButton = ({ onClick }: CloseButtonProps) => {
-    const buttonClose = 'buttonClose';
-
-    const genreBox = 'genreBox';
-    return (
-        <div>
-            <button className={buttonClose} onClick={onClick}>
-                Закрити
-            </button>
-            <div className={genreBox}>
-                <Genres />
+            <div className={triggerClasses} onClick={toggleSidebar}>
+                <button className={'buttonClose'}>Жанри</button>
             </div>
-        </div>
+            <div className={sidebarClasses}>
+                <div>
+                    <button className={'buttonClose'} onClick={closeSidebar}>
+                        Закрити
+                    </button>
+                </div>
+                <div className={'genreBox'}>
+                    <Genres />
+                </div>
+            </div>
+        </>
     );
 };
 

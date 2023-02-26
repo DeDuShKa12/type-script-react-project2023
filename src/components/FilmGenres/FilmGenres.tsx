@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 
@@ -13,12 +13,20 @@ const FilmGenres:FC = () => {
     const { movieByGenres, totalPages } = useAppSelector((state) => state.genreReducer);
 
     const [searchParams, setSearchParams] = useSearchParams({ page: '1' });
+
     const { id } = useParams();
 
+    let [totPage,setTotPage] = useState<number>(totalPages);
 
     useEffect(() => {
         if (!searchParams.get('page')) {
             setSearchParams({ page: '1' });
+        }
+        if(totalPages > 500 ) {
+            setTotPage(500)
+        }
+        else if (totalPages<500){
+            setTotPage(totalPages)
         }
         const page = searchParams.get('page');
         dispatch(genresActions.getMoviesByGenre({id, page }));
@@ -27,31 +35,28 @@ const FilmGenres:FC = () => {
             left: 0,
             behavior: 'smooth',
         });
-    }, [setSearchParams, dispatch, searchParams, id]);
+    }, [setSearchParams, dispatch, searchParams, id, totalPages]);
 
     const handleChangePage = (event: React.ChangeEvent<unknown>, newPage:number) => {
         setSearchParams({ page: newPage.toString() });
     };
 
     return (
-        <div>
-            <div className={css.mainDiv}>
-                <div className={css.filmsBox}>
-                    <div className={css.films}>
+
+            <>
+                    <div className={css.filmsDiv}>
                         {movieByGenres.map((movie) => (
                             <Film key={movie.id} film={movie} />
                         ))}
                     </div>
-                    <div className={css.pageDiv}>
+                    <div className={css.pageBox}>
                         <Pagination
-                            count={totalPages}
+                            count={totPage}
                             page={+searchParams.get('page')!!}
                             onChange={handleChangePage}
                         />
                     </div>
-                </div>
-            </div>
-        </div>
+            </>
     );
 };
 

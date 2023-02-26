@@ -1,0 +1,17 @@
+.MainBox {
+    width: 100%;
+    max-height: 320vh;
+    min-height: 100vh;
+    background-image: var(--background-image);
+    color: wheat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filmsBox {
+    max-width: 1200px;
+    width: 100%;
+    margin-top: 140px;
+    margin-bottom: 60px;
+}

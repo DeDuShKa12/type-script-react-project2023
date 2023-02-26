@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
 }
 
 input[type=text] {
@@ -13,7 +14,8 @@ input[type=text] {
     background-color: var(--background-secondary);
     border-radius: 30px;
     font-size: 20px;
-    color: var(--text-secondary)
+    color: var(--text-secondary);
+    padding-left: 20px;
 }
 input::placeholder {
     color: var(--text-primary);

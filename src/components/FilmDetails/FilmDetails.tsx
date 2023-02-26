@@ -26,7 +26,7 @@ const FilmDetails:FC = () => {
     }, [dispatch, id])
 
     return (
-        <div className={css.detailsMainBox}>
+       <>
             {filmDetails &&
                 <div className={css.mainBox}>
                     <img className={css.imgBox} src={`https://image.tmdb.org/t/p/w500${filmDetails.poster_path}`} alt={filmDetails.title}/>
@@ -60,7 +60,7 @@ const FilmDetails:FC = () => {
 
             }
 
-        </div>
+       </>
     );
 };
 

@@ -12,6 +12,7 @@ body {
   --text-secondary: #fafafa;
   --text-third: #020007;
   --accent: #e5e5e5;
+  --box-shadow: #222121 0px 5px 15px;
   --background-image: url("https://png.pngtree.com/background/20210710/original/pngtree-baking-event-promotion-poster-background-material-picture-image_1050468.jpg");
 }
 [data-theme="dark"] {
@@ -23,5 +24,6 @@ body {
   --text-secondary: #121212;
   --text-third: #efefef;
   --accent: #5a7ca2;
+  --box-shadow: #e8e8e8 0px 5px 15px;
   --background-image: url("https://images.pexels.com/photos/2603464/pexels-photo-2603464.jpeg");
 }

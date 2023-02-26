@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
+import {ICountrie} from "../../interfaces";
 
 interface IProps {
     key:number;
-    countrie: {iso_3166_1: string; name: string;}
+    countrie: ICountrie
 }
 
 const CountriesInDet:FC<IProps> = ({countrie}) => {

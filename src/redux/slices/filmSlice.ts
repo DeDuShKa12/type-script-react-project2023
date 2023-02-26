@@ -1,32 +1,32 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 
-import {filmsService} from "../../services";
-import {IConfigSearch, IDetails, IMovies, IMoviesRes} from "../../interfaces";
-import {AxiosError} from "axios";
+import { filmsService } from "../../services";
+import { IConfigSearch, IDetails, IMovies, IMoviesRes } from "../../interfaces";
 
 interface IState {
-    films:IMoviesRes[];
+    films: IMoviesRes[];
     searchFilms: IMoviesRes[];
     selectedQuery: { name: string }
-    errors: null|string|unknown;
+    errors: null | string | unknown;
     totalPages: number;
     filmDetails: IDetails | null
 
 }
 
 const initialState: IState = {
-    films:[],
+    films: [],
     searchFilms: [],
-    selectedQuery: {name: ''},
+    selectedQuery: { name: '' },
     errors: null,
     totalPages: 1,
     filmDetails: null
 };
 
 
-const getAll = createAsyncThunk<IMovies, {page:string|null}>(
+const getAll = createAsyncThunk<IMovies, { page: string }>(
     "filmSlice/getAll",
-    async ({ page},{rejectWithValue}) => {
+    async ({ page }, { rejectWithValue }) => {
         try {
             const { data } = await filmsService.getAll(page);
             return data;
@@ -37,13 +37,13 @@ const getAll = createAsyncThunk<IMovies, {page:string|null}>(
     }
 );
 
-const getById = createAsyncThunk<IDetails, {id:string|undefined}>(
+const getById = createAsyncThunk<IDetails, { id: string | undefined }>(
     'filmSlice/getById',
-    async ({id}, {rejectWithValue})=>{
+    async ({ id }, { rejectWithValue }) => {
         try {
-            const {data} = await filmsService.getByID(id);
+            const { data } = await filmsService.getByID(id);
             return data
-        }catch (e) {
+        } catch (e) {
             const err = e as AxiosError
             return rejectWithValue(err.response?.data)
         }
@@ -52,7 +52,7 @@ const getById = createAsyncThunk<IDetails, {id:string|undefined}>(
 
 
 
-const search = createAsyncThunk<IMovies, {page:string|null, query: {name:string}}>(
+const search = createAsyncThunk<IMovies, { page: string | null, query: { name: string } }>(
     'filmSlice/search',
     async (params, thunkAPI) => {
         try {
@@ -76,33 +76,36 @@ const search = createAsyncThunk<IMovies, {page:string|null, query: {name:string}
 const filmSlice = createSlice({
     name: 'filmSlice',
     initialState,
-    reducers:{
+    reducers: {
         setSelectedQuery: (state, action) => {
             state.selectedQuery = action.payload
         }
     },
     extraReducers: builder =>
         builder
-            .addCase(getAll.fulfilled, (state, action)=>{
+            .addCase(getAll.fulfilled, (state, action) => {
                 state.films = action.payload.results
                 state.totalPages = action.payload.total_pages
             })
-            .addCase(getAll.rejected, (state, action)=>{
+            .addCase(getAll.rejected, (state, action) => {
                 state.errors = action.payload
             })
-            .addCase(getById.fulfilled, (state, action)=>{
+            .addCase(getById.fulfilled, (state, action) => {
                 state.filmDetails = action.payload
             })
-            .addCase(search.fulfilled, (state, action)=>{
+            .addCase(getById.rejected, (state, action) => {
+                state.errors = action.payload
+            })
+            .addCase(search.fulfilled, (state, action) => {
                 state.searchFilms = action.payload.results
                 state.totalPages = action.payload.total_pages
             })
-            .addCase(search.rejected, (state, action)=>{
+            .addCase(search.rejected, (state, action) => {
                 state.errors = action.payload
             })
 });
 
-const {reducer: filmReducer, actions: {setSelectedQuery}} = filmSlice
+const { reducer: filmReducer, actions: { setSelectedQuery } } = filmSlice
 
 
 const filmActions = {
